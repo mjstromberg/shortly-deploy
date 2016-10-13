@@ -33,7 +33,7 @@ module.exports = function(grunt) {
     },
 
     uglify: {
-      my_target: {
+      my_target: { // eslint-disable-line camelcase
         files: {
           'public/dist/build.min.js': ['public/dist/build.js']
         }
@@ -42,7 +42,7 @@ module.exports = function(grunt) {
 
     eslint: {
       target: [
-        // Add list of files to lint here
+        '*.js'
       ]
     },
 
@@ -99,6 +99,7 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build', [
+    'eslint',
     'concat',
     'uglify',
     'cssmin'
