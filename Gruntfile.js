@@ -76,6 +76,7 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
+        command: 'git push live master'
       }
     },
   });
@@ -111,25 +112,21 @@ module.exports = function(grunt) {
     'cssmin'
   ]);
 
-  grunt.registerTask('upload', function(n) {
-    if (grunt.option('prod')) {
-      console.log('prod yo');
-      // add your production server task here
-    } else {
-      grunt.task.run([ 'server-dev' ]);
-    }
-  });
+  // grunt.registerTask('upload', function(n) {
+  //   if (grunt.option('prod')) {
+  //     console.log('prod yo');
+  //     // add your production server task here
+  //   } else {
+  //     grunt.task.run([ 'server-dev' ]);
+  //   }
+  // });
 
   grunt.registerTask('deploy', function(n) {
-    // build and test
     grunt.task.run([ 'build' ]);
-    // if prod:
     if (grunt.option('prod')) {
-      // push
-
-    // else
+      grunt.task.run('shell:prodServer');
     } else {
-      // start running locally (server-dev)
+      grunt.task.run([ 'server-dev' ]);
     }
   });
 
