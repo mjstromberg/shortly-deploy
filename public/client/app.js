@@ -38,5 +38,3 @@ window.Shortly = Backbone.View.extend({
       .addClass('selected');
   }
 });
-
-console.log('batman');

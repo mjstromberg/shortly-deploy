@@ -33,6 +33,9 @@ module.exports = function(grunt) {
     },
 
     uglify: {
+      options: {
+        mangle: false
+      },
       my_target: { // eslint-disable-line camelcase
         files: {
           'public/dist/build.min.js': ['public/dist/build.js']
@@ -87,6 +90,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-nodemon');
 
   grunt.registerTask('server-dev', function (target) {
+    // Note: watch doesn't seem to actually run
+    // thus why it's being called in the nodemon callback above
     grunt.task.run([ 'nodemon', 'watch' ]);
   });
 
@@ -100,6 +105,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', [
     'eslint',
+    'test',
     'concat',
     'uglify',
     'cssmin'
@@ -107,15 +113,25 @@ module.exports = function(grunt) {
 
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
+      console.log('prod yo');
       // add your production server task here
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
   });
 
-  grunt.registerTask('deploy', [
-    // add your deploy tasks here
-  ]);
+  grunt.registerTask('deploy', function(n) {
+    // build and test
+    grunt.task.run([ 'build' ]);
+    // if prod:
+    if (grunt.option('prod')) {
+      // push
+
+    // else
+    } else {
+      // start running locally (server-dev)
+    }
+  });
 
 
 };
