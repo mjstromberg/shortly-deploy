@@ -4,6 +4,7 @@ var expect = require('chai').expect;
 var app = require('../server-config.js');
 
 var db = require('../app/config');
+
 var User = require('../app/models/user');
 var Link = require('../app/models/link');
 
@@ -11,7 +12,9 @@ var Link = require('../app/models/link');
 // NOTE: these tests are designed for mongo!
 /////////////////////////////////////////////////////
 
+
 describe('', function() {
+  this.timeout(4000);
 
   beforeEach(function(done) {
     // Log out currently signed in user
@@ -23,7 +26,6 @@ describe('', function() {
         Link.remove({url: 'http://www.roflzoo.com/'}).exec();
         User.remove({username: 'Savannah'}).exec();
         User.remove({username: 'Phillip'}).exec();
-        // User.remove({username: 'Svnh'}).exec();
 
         done();
       });
@@ -100,7 +102,6 @@ describe('', function() {
         });
 
         link.save(function(err, savedLink) {
-          // console.log('savedLink is', savedLink);
           done();
         });
       });
@@ -183,7 +184,6 @@ describe('', function() {
         .expect(function() {
           User.findOne({'username': 'Svnh'})
             .exec(function(err, user) {
-              console.log('user is', user);
               expect(user.username).to.equal('Svnh');
             });
         })
