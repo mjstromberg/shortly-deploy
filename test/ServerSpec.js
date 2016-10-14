@@ -23,6 +23,7 @@ describe('', function() {
         Link.remove({url: 'http://www.roflzoo.com/'}).exec();
         User.remove({username: 'Savannah'}).exec();
         User.remove({username: 'Phillip'}).exec();
+        // User.remove({username: 'Svnh'}).exec();
 
         done();
       });
@@ -98,7 +99,8 @@ describe('', function() {
           visits: 0
         });
 
-        link.save(function() {
+        link.save(function(err, savedLink) {
+          // console.log('savedLink is', savedLink);
           done();
         });
       });
@@ -181,6 +183,7 @@ describe('', function() {
         .expect(function() {
           User.findOne({'username': 'Svnh'})
             .exec(function(err, user) {
+              console.log('user is', user);
               expect(user.username).to.equal('Svnh');
             });
         })
